@@ -1,7 +1,15 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -15,8 +23,15 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              0 Cart
+            <button
+              class="btn btn-secondary dropdown-toggle "
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {{ cartItemCount }} Cart
             </button>
             <div class="mini-cart" @click="$event.stopPropagation()">
               <mini-cart></mini-cart>
@@ -31,10 +46,16 @@
 <script>
 import MiniCart from "./MiniCart";
 export default {
-  components:{
-    MiniCart,
+  components: {
+    MiniCart
   },
-  name: "NavBar"
+  name: "NavBar",
+
+  computed: {
+    cartItemCount() {
+      return this.$store.getters.cartItemCount;
+    }
+  }
 };
 </script>
 

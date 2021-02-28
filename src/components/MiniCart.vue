@@ -1,19 +1,20 @@
 <template>
   <div class="dropdown-menu p-4" style="width: 320px;right: 0;left: auto" aria-labelledby="dropdownMenuButton">
-    <div class="d-flex justify-content-between">
-      <div class="product-title">
-        <h5>Product Title</h5>
-        <p>1 x $42</p>
-      </div>
-      <div class="product-remove">
-        <button class="badge bg-danger text-white">remove</button>
+    <div class="">
+      <div v-for="item in getCart" :key="item.product.id" class="d-flex justify-content-between border-bottom">
+        <div class="product-title">
+          <h5>{{item.product.title}}</h5>
+          <p>{{item.quantity}} x ${{item.product.price}}</p>
+        </div>
+        <div class="product-remove">
+          <button class="badge bg-danger text-white" @click.prevent="removeCartItem(item)">remove</button>
+        </div>
       </div>
     </div>
-    <hr>
     <div class="d-flex justify-content-between">
-      <p><b>Total:</b> $23</p>
-      <div class="clear-cart">
-        <button class="badge badge-dark">Clear Cart</button>
+      <p><b>Total: {{cartItemTotalPrice}}</b></p>
+      <div class="clear-cart" v-if="getCart.length">
+        <button @click.prevent="clearAllCartItem" class="badge badge-dark">Clear Cart</button>
       </div>
     </div>
   </div>
@@ -21,7 +22,29 @@
 
 <script>
 export default {
-  name: "MiniCart"
+  name: "MiniCart",
+  computed: {
+    getCart() {
+      return this.$store.state.cart;
+    },
+
+    cartItemTotalPrice() {
+      return this.$store.getters.cartItemTotalPrice;
+    }
+  },
+  mounted() {
+    this.$store.dispatch("getCartItems");
+  },
+  methods:{
+    removeCartItem(item) {
+      return this.$store.dispatch('removeCartItem',item)
+    },
+
+    clearAllCartItem(){
+      return this.$store.dispatch('clearAllCartItem')
+
+    }
+  }
 };
 </script>
 

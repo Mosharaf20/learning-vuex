@@ -4,7 +4,7 @@ export default [
   {
     path: "/",
     component: Home,
-    name: "Home"
+    name: "home"
   },
   {
     path: "/product/:id",

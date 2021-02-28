@@ -1,15 +1,29 @@
 <template>
-  <div class="row m-3">
-   <div class="col-4">
-     <img class="card-img-top" src="https://dummyimage.com/320x200/000/fff" alt="Card image cap">
-   </div>
-    <div class="col-">
+  <div class="row m-3" v-if="product">
+    <div class="col-4">
+      <img
+        class="card-img-top"
+        style="height: 300px;"
+        :src="product.image"
+        alt="Card image cap"
+      />
+    </div>
+    <div class="col-7">
       <div class="card-body">
-        <h5 class="card-title">Product title {{id}}</h5>
-        <b>$25</b>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <input class="mr-2" type="text" style="width: 40px">
-        <a href="#" class="btn btn-primary">Add To Cart</a>
+        <h5 class="card-title">{{ product.title }}</h5>
+        <b>${{ product.price }}</b>
+        <p class="card-text">
+          {{ product.description }}
+        </p>
+        <input
+          v-model="quantity"
+          class="mr-2"
+          type="number"
+          style="width: 40px"
+        />
+        <a href="#" @click.prevent="addToCart(product)" class="btn btn-primary"
+          >Add To Cart</a
+        >
       </div>
     </div>
   </div>
@@ -18,7 +32,31 @@
 <script>
 export default {
   name: "Product",
-  props:['id']
+  props: ["id"],
+  data() {
+    return {
+      quantity: 1
+    };
+  },
+
+  computed: {
+    product() {
+      return this.$store.state.product;
+    }
+  },
+
+  mounted() {
+    this.$store.dispatch("getProduct", this.id);
+  },
+
+  methods: {
+    addToCart(product) {
+      this.$store.dispatch("addToCart", {
+        product: product,
+        quantity: this.quantity
+      });
+    }
+  }
 };
 </script>
 
