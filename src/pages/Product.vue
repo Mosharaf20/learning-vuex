@@ -41,7 +41,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["product"])
+    ...mapState("product", ["product"])
     /*product() {
       return this.$store.state.product;
     }*/
@@ -53,7 +53,8 @@ export default {
   },
 
   methods: {
-    ...mapActions("cart", ["addToCart", "getProduct"]),
+    ...mapActions("product", ["getProduct"]),
+    ...mapActions("cart", ["addToCart"]),
 
     addCart() {
       this.addToCart({
