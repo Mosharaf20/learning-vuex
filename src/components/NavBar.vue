@@ -53,7 +53,7 @@ export default {
   name: "NavBar",
 
   computed: {
-    ...mapGetters(["cartItemCount"])
+    ...mapGetters('cart',["cartItemCount"])
   }
 };
 </script>

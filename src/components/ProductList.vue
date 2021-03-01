@@ -17,14 +17,24 @@ export default {
     ProductCart
   },
   computed: {
-    ...mapState(["products"])
+    ...mapState("product", ["products"])
+
+    //when not used namespace
+    /*...mapState({
+      products: state => state.product.products
+    })*/
 
     /*products() {
       return this.$store.state.products;
     }*/
   },
   methods: {
-    ...mapActions(["getProducts"])
+    ...mapActions('product', ["getProducts"]),
+
+    //another way to access modules
+    // ...mapActions({
+    //   getProducts: 'product/getProducts',
+    // })
   },
   mounted() {
     this.getProducts();

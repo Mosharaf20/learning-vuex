@@ -53,7 +53,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["addToCart", "getProduct"]),
+    ...mapActions("cart", ["addToCart", "getProduct"]),
 
     addCart() {
       this.addToCart({

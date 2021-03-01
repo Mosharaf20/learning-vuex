@@ -42,12 +42,12 @@ import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   name: "MiniCart",
   computed: {
-    ...mapState(["cart"]),
+    ...mapState("cart", ["cart"]),
     /*cart() {
       return this.$store.state.cart;
     },*/
 
-    ...mapGetters(["cartItemTotalPrice"])
+    ...mapGetters("cart", ["cartItemTotalPrice"])
     /* cartItemTotalPrice() {
       return this.$store.getters.cartItemTotalPrice;
     }*/
@@ -56,7 +56,11 @@ export default {
     this.getCartItems();
   },
   methods: {
-    ...mapActions(["removeCartItem", "clearAllCartItem", "getCartItems"])
+    ...mapActions("cart", [
+      "removeCartItem",
+      "clearAllCartItem",
+      "getCartItems"
+    ])
     /*removeCartItem(item) {
       return this.$store.dispatch("removeCartItem", item);
     },
