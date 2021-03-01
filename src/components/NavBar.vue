@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import MiniCart from "./MiniCart";
 export default {
   components: {
@@ -52,9 +53,7 @@ export default {
   name: "NavBar",
 
   computed: {
-    cartItemCount() {
-      return this.$store.getters.cartItemCount;
-    }
+    ...mapGetters(["cartItemCount"])
   }
 };
 </script>

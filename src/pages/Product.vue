@@ -21,7 +21,7 @@
           type="number"
           style="width: 40px"
         />
-        <a href="#" @click.prevent="addToCart(product)" class="btn btn-primary"
+        <a href="#" @click.prevent="addCart" class="btn btn-primary"
           >Add To Cart</a
         >
       </div>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
   name: "Product",
   props: ["id"],
@@ -40,22 +41,32 @@ export default {
   },
 
   computed: {
-    product() {
+    ...mapState(["product"])
+    /*product() {
       return this.$store.state.product;
-    }
+    }*/
   },
 
   mounted() {
-    this.$store.dispatch("getProduct", this.id);
+    this.getProduct(this.id);
+    // this.$store.dispatch("getProduct", this.id);
   },
 
   methods: {
-    addToCart(product) {
+    ...mapActions(["addToCart", "getProduct"]),
+
+    addCart() {
+      this.addToCart({
+        product: this.product,
+        quantity: this.quantity
+      });
+    }
+    /*addToCart(product) {
       this.$store.dispatch("addToCart", {
         product: product,
         quantity: this.quantity
       });
-    }
+    }*/
   }
 };
 </script>

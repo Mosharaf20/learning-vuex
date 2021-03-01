@@ -1,10 +1,15 @@
 <template>
   <div class="d-flex flex-wrap justify-content-between">
-    <product-cart v-for="product in products"  :product="product" :key="product.id" />
+    <product-cart
+      v-for="product in products"
+      :product="product"
+      :key="product.id"
+    />
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import ProductCart from "./ProductCart";
 export default {
   name: "Product",
@@ -12,12 +17,17 @@ export default {
     ProductCart
   },
   computed: {
-    products() {
+    ...mapState(["products"])
+
+    /*products() {
       return this.$store.state.products;
-    }
+    }*/
+  },
+  methods: {
+    ...mapActions(["getProducts"])
   },
   mounted() {
-    this.$store.dispatch("getProducts");
+    this.getProducts();
   }
 };
 </script>
